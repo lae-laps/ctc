@@ -1,7 +1,10 @@
+#!/usr/bin/python3
 # ctc.py
 
 import os
 import sys
+
+verbose = False # echo to terminal
 
 try:
     import pyperclip
@@ -17,11 +20,18 @@ def get_stdin():
         return stdin
     else:
         return False
-    
+
+def check_verbose():
+    for i in sys.argv[1:]:
+        if i == "-v":
+            verbose = True
+            sys.argv.remove(i)
+
 def get_args():
     return ' '.join(sys.argv[1:])
 
 if __name__ == "__main__":
+    check_verbose()
     content = get_stdin()
     if not content:
         content = get_args()
@@ -29,11 +39,9 @@ if __name__ == "__main__":
             with open(content, "r") as file:
                 content = file.read().rstrip()
                 file.close()
-                pyperclip.copy(content)
-                exit()
-        except OSError: 
-            pyperclip.copy(content)
-            exit()
+        except OSError:
+            pass
     pyperclip.copy(content)
-    exit()
+    if verbose:
+        print(content)
 
