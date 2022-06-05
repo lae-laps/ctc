@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include </usr/include/python3.10/Python.h>
+
+#include </usr/include/python3.10/Python.h> // python header - still not used here
 
 char *text;
 
@@ -31,6 +32,13 @@ int main(int argc, char *argv[]) {
         }
         text = argv[1]; // copy args to pipe
     }
-    printf("here is your stdin >>%s<<", text);
+    // stdin or arguments are now stored in text
+    printf("stdin : %s", text)
+    /* TODO: - Read xclip's code and build an API or interface taking part of xclip's code to implement here
+             - Migraton from python to c for increased speed 
+             - Maybe search for a midpoint and build the core stdin detection in c and use a python module to copy it to the clipboard
+             - Look into using a light GUI framework which has cross platform compatibility for copying text into clipboard
+             */
+
 }
 
